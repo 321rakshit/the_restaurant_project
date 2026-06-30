@@ -2,15 +2,50 @@
 
 A new platform for Indian restaurants. Direct orders, payments, and bookings — without 25–30% aggregator commissions.
 
-`index.html` is the landing page. It is a single self-contained static file (HTML + inline CSS + a few lines of vanilla JS for the waitlist form's submitted state). Open it directly in a browser or serve it with any static host.
+**Live:** https://the-restaurant-project-olive.vercel.app/
 
-## Local preview
+## Stack
+
+- **React 18** + **TypeScript** — component-based UI, type-safe props and state.
+- **Vite 5** — dev server and production bundler. Build output: `dist/`.
+- **Plain CSS** — global resets, animations, and `:hover` transitions live in `src/global.css`; section-level styling lives in component inline `style={{}}` objects so each component owns its own visual contract. Design tokens (colors, layout widths) are centralized in `src/tokens.ts`.
+
+The waitlist form is a controlled component with local `useState` — it does **not** yet POST to a backend. Submissions render the success state and are discarded.
+
+## Project layout
 
 ```
-python3 -m http.server 8000
-# then visit http://localhost:8000
+index.html              Vite entry — minimal shell, mounts <App /> into #root
+src/
+  main.tsx              React root + global stylesheet import
+  App.tsx               Page composition
+  global.css            Resets, font defaults, grid utilities, fadeUp animation
+  tokens.ts             Design tokens (colors, layout widths)
+  components/
+    icons.tsx           Shared SVG icon components
+    Nav.tsx
+    Hero.tsx
+    WhyThisMatters.tsx
+    WhatWereBuilding.tsx
+    WhoWereFor.tsx
+    ContactNote.tsx
+    WaitlistForm.tsx
+    Footer.tsx
 ```
+
+## Local development
+
+```
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # type-check + produce dist/
+npm run preview  # serve dist/ locally to sanity-check the build
+```
+
+## Deployment
+
+Hosted on Vercel via the Git integration — every push auto-deploys (production from the default branch, previews from feature branches). Vercel auto-detects the Vite framework; build command `npm run build`, output directory `dist`. Custom domain (`platofy.ai`) is not yet wired up.
 
 ## Source design
 
-Implemented from the Claude Design handoff in `.design-handoff/plato-ai-landing-page/project/Platofy Landing Page.dc.html`.
+Implemented from the Claude Design handoff in `.design-handoff/plato-ai-landing-page/project/Platofy Landing Page.dc.html`. The handoff bundle is kept in-tree as the visual source of truth — any redesign should round-trip through it.
