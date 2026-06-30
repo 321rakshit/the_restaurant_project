@@ -1,11 +1,10 @@
 import { layout } from './tokens';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
-import { WhyThisMatters } from './components/WhyThisMatters';
+import { WhatWeDo } from './components/WhatWeDo';
 import { WhatWereBuilding } from './components/WhatWereBuilding';
-import { WhoWereFor } from './components/WhoWereFor';
-import { ContactNote } from './components/ContactNote';
-import { WaitlistForm } from './components/WaitlistForm';
+import { WhoWeAre } from './components/WhoWeAre';
+import { LetsTalk } from './components/LetsTalk';
 import { Footer } from './components/Footer';
 
 export function App() {
@@ -14,11 +13,10 @@ export function App() {
       <Nav />
       <main style={{ paddingTop: layout.navHeight }}>
         <Hero />
-        <WhyThisMatters />
+        <WhatWeDo />
         <WhatWereBuilding />
-        <WhoWereFor />
-        <ContactNote />
-        <WaitlistForm />
+        <WhoWeAre />
+        <LetsTalk />
         <Footer />
       </main>
     </>

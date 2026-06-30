@@ -1,4 +1,5 @@
 import { colors, layout } from '../tokens';
+import { contact } from '../contact';
 import { LinkedInIcon } from './icons';
 
 export function Footer() {
@@ -29,11 +30,11 @@ export function Footer() {
           <span style={{ fontSize: 13, color: colors.textFaint }}>© 2026</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18, flexWrap: 'wrap' }}>
-          <a href="tel:+919354637615" className="footer-link" style={{ fontSize: 13.5, color: colors.textMuted }}>
-            +91 93546 37615
+          <a href={contact.phoneHref} className="footer-link" style={{ fontSize: 13.5, color: colors.textMuted }}>
+            {contact.phoneDisplay}
           </a>
-          <a href="mailto:hi@platofy.ai" className="footer-link" style={{ fontSize: 13.5, color: colors.textMuted }}>
-            hi@platofy.ai
+          <a href={contact.emailHref} className="footer-link" style={{ fontSize: 13.5, color: colors.textMuted }}>
+            {contact.email}
           </a>
           <a href="#" className="footer-link" aria-label="LinkedIn" style={{ color: colors.textMuted }}>
             <LinkedInIcon />

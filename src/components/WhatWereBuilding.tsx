@@ -1,45 +1,23 @@
-import type { ReactNode } from 'react';
 import { colors, layout } from '../tokens';
-import { GridIcon, MenuIcon, MusicIcon } from './icons';
 
-type Feature = {
-  icon: ReactNode;
+type Product = {
   title: string;
-  body: ReactNode;
+  description: string;
+  forLine: string;
 };
 
-const features: Feature[] = [
+const products: Product[] = [
   {
-    icon: <GridIcon />,
-    title: 'Direct ordering',
-    body: (
-      <>
-        QR code on the table or in the hotel room. Guest scans, sees your menu, orders, pays via UPI. Order goes
-        straight to your kitchen. No app downloads, no aggregator cuts. Works for dine-in, in-room dining, and resort
-        multi-outlet ordering.
-      </>
-    ),
+    title: 'Smart QR Menu & Ordering',
+    description:
+      "Guests scan a QR code, browse your menu on their phone, order, and pay — directly. No app to download, no commission to aggregators. Our AI builds your entire digital menu from a photo of your existing one in minutes, and suggests smart add-ons that lift your order value.",
+    forLine: 'Cafes, restaurants, food outlets, hotel in-room dining, resort outlets.',
   },
   {
-    icon: <MenuIcon />,
-    title: 'AI menu setup',
-    body: (
-      <>
-        Photograph your existing paper menu. Our AI extracts the dishes, prices, categories, and veg/non-veg markers —
-        and builds your digital menu in minutes instead of days.
-      </>
-    ),
-  },
-  {
-    icon: <MusicIcon />,
-    title: 'A music feature unlike anything in India',
-    body: (
-      <>
-        We're working on letting guests queue songs to your speaker system from their phone. Owner sets the catalog
-        and rules. Optional, built for cafes and lounges where ambience matters.{' '}
-        <em style={{ color: colors.textFaint }}>Still in design; licensing in progress.</em>
-      </>
-    ),
+    title: 'Guest-Controlled Music',
+    description:
+      "Let your guests set the vibe. They queue songs to your speakers from their phone, within rules you control. It turns an ordinary visit into something people remember — and nobody else in India is doing it yet.",
+    forLine: 'Cafes, lounges, bars, resorts.',
   },
 ];
 
@@ -58,39 +36,46 @@ export function WhatWereBuilding() {
         >
           What we're building.
         </h2>
-        <p style={{ fontSize: 14, color: colors.textFaint, marginBottom: 52 }}>
-          V1, in development. Shipping to design partners first.
+        <p style={{ fontSize: 14, color: colors.textFaint, marginBottom: 36 }}>
+          Two products in development. More coming.
         </p>
 
-        <div className="g-3">
-          {features.map((f) => (
-            <article key={f.title}>
-              <div
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: 9,
-                  border: `1.5px solid ${colors.accentRing}`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: 18,
-                }}
-              >
-                {f.icon}
-              </div>
+        <div className="g-2cards">
+          {products.map((p) => (
+            <article
+              key={p.title}
+              style={{
+                background: colors.bgWhite,
+                border: `1px solid ${colors.border}`,
+                borderRadius: 14,
+                padding: '28px 30px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 14,
+              }}
+            >
               <h3
                 style={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  letterSpacing: '-.01em',
+                  fontSize: 20,
+                  fontWeight: 800,
+                  letterSpacing: '-.015em',
                   color: colors.textPrimary,
-                  marginBottom: 10,
                 }}
               >
-                {f.title}
+                {p.title}
               </h3>
-              <p style={{ fontSize: 14.5, lineHeight: 1.72, color: colors.textMuted }}>{f.body}</p>
+              <p style={{ fontSize: 15, lineHeight: 1.72, color: colors.textSecondary }}>{p.description}</p>
+              <p
+                style={{
+                  marginTop: 'auto',
+                  paddingTop: 6,
+                  fontSize: 13.5,
+                  fontStyle: 'italic',
+                  color: colors.textFaint,
+                }}
+              >
+                For: {p.forLine}
+              </p>
             </article>
           ))}
         </div>
@@ -100,12 +85,13 @@ export function WhatWereBuilding() {
             textAlign: 'center',
             fontSize: 15,
             color: colors.textFaint,
-            marginTop: 60,
+            marginTop: 56,
             paddingTop: 36,
             borderTop: `1px solid ${colors.border}`,
           }}
         >
-          We're not trying to replace Petpooja or Restroworks. Platofy sits on top of whatever billing you use today.
+          These are the first two. We're building more AI tools for the food business — from guest experience to
+          operations — one useful thing at a time.
         </p>
       </div>
     </section>

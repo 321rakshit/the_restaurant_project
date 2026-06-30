@@ -1,4 +1,15 @@
 import { colors, layout } from '../tokens';
+import { contact } from '../contact';
+
+const ctaBase = {
+  fontSize: 15,
+  fontWeight: 700,
+  padding: '14px 22px',
+  borderRadius: 10,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+} as const;
 
 export function Hero() {
   return (
@@ -15,7 +26,7 @@ export function Hero() {
             marginBottom: 24,
           }}
         >
-          A new platform for Indian restaurants. In development.
+          An AI &amp; tech enablement company for the food business
         </div>
 
         <h1
@@ -29,8 +40,7 @@ export function Hero() {
             marginBottom: 26,
           }}
         >
-          We're building software that lets restaurants take direct orders, payments, and bookings from their guests'
-          phones — without paying 25–30% to aggregators.
+          We bring AI and modern tech to the food business.
         </h1>
 
         <p
@@ -43,11 +53,9 @@ export function Hero() {
             marginBottom: 36,
           }}
         >
-          Platofy is for cafe, restaurant, hotel, and resort operators in India who are tired of Zomato and Swiggy
-          commissions, manual paper menus, and digital tools that weren't built for how India actually dines. We're
-          starting with the basics — QR ordering, UPI payments, GST billing — and layering AI on top to do the things
-          existing software doesn't: instant menu digitization from a photo, smart upsells, and a few things you
-          haven't seen before.
+          We're the AI and tech team that food businesses don't have in-house — but should. Platofy builds simple,
+          practical AI products that help restaurants, cafes, and food businesses run smarter — and we translate the
+          technology so the people running them don't have to.
         </p>
 
         <div
@@ -55,36 +63,37 @@ export function Hero() {
           style={{
             display: 'flex',
             flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: 20,
+            gap: 12,
             marginBottom: 22,
           }}
         >
           <a
-            href="#waitlist"
+            href={contact.phoneHref}
             className="btn-primary"
-            style={{
-              background: colors.accent,
-              color: colors.bgWhite,
-              fontSize: 15,
-              fontWeight: 700,
-              padding: '14px 26px',
-              borderRadius: 10,
-            }}
+            style={{ ...ctaBase, background: colors.accent, color: colors.bgWhite }}
           >
-            Join the waitlist
+            Call us
           </a>
           <a
-            href="#contact"
-            className="text-link"
-            style={{ fontSize: 15, fontWeight: 600, color: colors.textPrimary }}
+            href={contact.whatsappHref}
+            className="btn-outline"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ ...ctaBase, color: colors.accent }}
           >
-            Talk to us →
+            WhatsApp us
+          </a>
+          <a
+            href={contact.emailHref}
+            className="btn-outline"
+            style={{ ...ctaBase, color: colors.accent }}
+          >
+            Email us
           </a>
         </div>
 
         <p className="anim4" style={{ fontSize: 13.5, color: colors.textFaint }}>
-          Pre-product. Building now. Looking for 10 design-partner restaurants in Bangalore, Mumbai, Delhi, and Goa.
+          Two products in development. More on the way.
         </p>
       </div>
     </section>
