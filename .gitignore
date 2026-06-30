@@ -3,3 +3,10 @@ node_modules/
 .vscode/
 .idea/
 .vercel/
+dist/
+*.tsbuildinfo
+*.local
+.env
+.env.*
+!.env.example
+
