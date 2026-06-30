@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#FAF7F2;font-family:'Satoshi','Inter',system-ui,-apple-system,sans-serif;color:#0F0F0F;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font:inherit}
+
+/* Layout grids */
+.g-hero{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.g-3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.g-2{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.g-pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.g-footer{display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px}
+.g-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+
+/* Transitions */
+.nav-link{transition:color 0.15s ease}
+.nav-link:hover{color:#0F0F0F!important}
+.btn-ghost:hover{background:rgba(15,15,15,0.05)!important}
+.btn-primary:hover{background:#A83509!important}
+.card-hover{transition:transform 0.2s ease,box-shadow 0.2s ease}
+.card-hover:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,0.10)!important}
+.faq-row{cursor:pointer;transition:background 0.1s}
+.faq-row:hover{background:rgba(0,0,0,0.01)}
+.footer-link{transition:color 0.15s}
+.footer-link:hover{color:rgba(250,247,242,0.9)!important}
+.pricing-link:hover{background:#F9FAFB!important}
+
+/* Waveform animation */
+.wave{display:inline-block;width:3px;border-radius:2px;background:#C2410C;transform-origin:bottom;animation:wv 1.1s ease-in-out infinite}
+@keyframes wv{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+
+/* Hero fade-in */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.anim1{animation:fadeUp .55s ease both}
+.anim2{animation:fadeUp .55s .12s ease both}
+.anim3{animation:fadeUp .55s .24s ease both}
+.anim4{animation:fadeUp .55s .36s ease both}
+.anim5{animation:fadeUp .55s .48s ease both}
+
+/* Responsive */
+@media(max-width:900px){
+  .g-hero{grid-template-columns:1fr;gap:40px}
+  .g-3{grid-template-columns:1fr;gap:20px}
+  .g-2{grid-template-columns:1fr;gap:40px}
+  .g-pricing{grid-template-columns:1fr;gap:16px}
+  .g-footer{grid-template-columns:1fr 1fr;gap:32px}
+  .g-steps{grid-template-columns:1fr;gap:20px}
+  .hide-sm{display:none!important}
+  .pricing-featured{transform:none!important}
+  .hero-right{display:flex;justify-content:center}
+}
+@media(min-width:901px){
+  .show-sm{display:none!important}
+}
+</style>
+</helmet>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav style="{{ navStyle }}">
+  <div style="max-width:1200px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between">
+
+    <a href="#" style="display:flex;align-items:center;gap:9px;flex-shrink:0">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <circle cx="15" cy="15" r="13" stroke="#C2410C" stroke-width="2"></circle>
+        <circle cx="15" cy="15" r="5.5" fill="#C2410C"></circle>
+      </svg>
+      <span style="font-size:17px;font-weight:700;letter-spacing:-0.035em;color:#0F0F0F;line-height:1">plato<sup style="font-size:.5em;font-weight:500;opacity:.55;vertical-align:super;letter-spacing:0">.ai</sup></span>
+    </a>
+
+    <div class="hide-sm" style="display:flex;align-items:center;gap:28px">
+      <a href="#features" class="nav-link" style="font-size:14px;font-weight:500;color:#6B7280">Features</a>
+      <a href="#hotels" class="nav-link" style="font-size:14px;font-weight:500;color:#6B7280">For Hotels</a>
+      <a href="#pricing" class="nav-link" style="font-size:14px;font-weight:500;color:#6B7280">Pricing</a>
+      <a href="#faq" class="nav-link" style="font-size:14px;font-weight:500;color:#6B7280">FAQ</a>
+    </div>
+
+    <div class="hide-sm" style="display:flex;align-items:center;gap:16px">
+      <a href="#" style="font-size:14px;font-weight:500;color:#6B7280">Login</a>
+      <a href="#" class="btn-primary" style="background:#C2410C;color:#fff;font-size:14px;font-weight:600;padding:9px 20px;border-radius:8px;transition:background .15s ease">Get Started Free</a>
+    </div>
+
+    <button class="show-sm" onClick="{{ toggleMenu }}" style="padding:8px;color:#0F0F0F;line-height:0">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+        <line x1="3" y1="5" x2="17" y2="5"></line>
+        <line x1="3" y1="10" x2="17" y2="10"></line>
+        <line x1="3" y1="15" x2="17" y2="15"></line>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div style="{{ mobileMenuStyle }}">
+  <a href="#features" style="font-size:15px;font-weight:500;color:#0F0F0F;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)">Features</a>
+  <a href="#hotels" style="font-size:15px;font-weight:500;color:#0F0F0F;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)">For Hotels</a>
+  <a href="#pricing" style="font-size:15px;font-weight:500;color:#0F0F0F;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)">Pricing</a>
+  <a href="#faq" style="font-size:15px;font-weight:500;color:#0F0F0F;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)">FAQ</a>
+  <div style="display:flex;gap:12px;padding-top:12px">
+    <a href="#" style="font-size:14px;font-weight:500;color:#6B7280;padding:10px 0">Login</a>
+    <a href="#" style="background:#C2410C;color:#fff;font-size:14px;font-weight:600;padding:10px 20px;border-radius:8px">Get Started Free</a>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<main style="padding-top:64px">
+
+<!-- ── HERO ── -->
+<section style="background:#FAF7F2;padding:72px 40px 96px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="g-hero">
+
+      <!-- Left copy -->
+      <div>
+        <div class="anim1" style="display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(194,65,12,.18);border-radius:100px;padding:5px 14px 5px 7px;margin-bottom:28px">
+          <span style="background:#C2410C;color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:100px">NEW</span>
+          <span style="font-size:13px;font-weight:500;color:#6B7280">Guest-controlled music — live now →</span>
+        </div>
+
+        <h1 class="anim2" style="font-size:clamp(44px,5.5vw,68px);font-weight:900;line-height:1.04;letter-spacing:-.04em;color:#0F0F0F;margin-bottom:22px">Dining,<br>reimagined.</h1>
+
+        <p class="anim3" style="font-size:18px;line-height:1.7;color:#6B7280;max-width:460px;margin-bottom:36px">The complete platform for modern restaurants, cafes, and hotels. Let your guests scan, order, pay — and even pick the music — all from their phone. Zero aggregator commissions.</p>
+
+        <div class="anim4" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:28px">
+          <a href="#" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;background:#C2410C;color:#fff;font-size:15px;font-weight:700;padding:14px 28px;border-radius:10px;transition:background .15s ease">
+            Start Free
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5h9M8 3.5l4 4-4 4"></path></svg>
+          </a>
+          <a href="#" class="btn-ghost" style="display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(15,15,15,.15);color:#0F0F0F;font-size:15px;font-weight:500;padding:13px 22px;border-radius:10px;transition:background .15s ease">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="#C2410C"><polygon points="5.5,3 12,7.5 5.5,12"></polygon></svg>
+            Watch Demo
+          </a>
+        </div>
+
+        <div class="anim5" style="display:flex;flex-wrap:wrap;gap:20px">
+          <div style="display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size:13px;color:#9CA3AF">No credit card</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size:13px;color:#9CA3AF">UPI-ready</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size:13px;color:#9CA3AF">GST billing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: phone mockup -->
+      <div class="hero-right" style="display:flex;justify-content:flex-end;align-items:center">
+        <div style="position:relative">
+          <!-- Ambient glow -->
+          <div style="position:absolute;inset:-20%;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(194,65,12,.1) 0%,transparent 70%);pointer-events:none"></div>
+
+          <!-- Phone frame -->
+          <div style="position:relative;width:270px;height:560px;background:#1C1C1E;border-radius:50px;padding:8px;box-shadow:0 48px 96px rgba(0,0,0,.22),0 0 0 1px rgba(255,255,255,.06)">
+            <div style="width:100%;height:100%;background:#FAF7F2;border-radius:44px;overflow:hidden;position:relative">
+              <!-- Dynamic island -->
+              <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#1C1C1E;border-radius:100px;z-index:10"></div>
+
+              <!-- Content starts below island -->
+              <div style="position:absolute;top:46px;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden">
+
+                <!-- Restaurant header -->
+                <div style="background:#fff;padding:12px 16px 10px;border-bottom:1px solid #F3F4F6;flex-shrink:0">
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="width:30px;height:30px;border-radius:9px;background:#FEF3EE;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#C2410C" stroke-width="1.5"></circle><circle cx="8" cy="8" r="2.5" fill="#C2410C"></circle></svg>
+                    </div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12px;font-weight:700;color:#0F0F0F">Café Aroha</div>
+                      <div style="font-size:9.5px;color:#9CA3AF">Table 5 · Scan to Order</div>
+                    </div>
+                    <div style="background:#FEF3EE;color:#C2410C;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:100px;letter-spacing:.03em">OPEN</div>
+                  </div>
+                </div>
+
+                <!-- Category tabs -->
+                <div style="background:#fff;padding:0 16px;display:flex;gap:14px;border-bottom:1px solid #F3F4F6;flex-shrink:0">
+                  <div style="font-size:10.5px;font-weight:700;color:#C2410C;padding:9px 0;border-bottom:2px solid #C2410C">Starters</div>
+                  <div style="font-size:10.5px;font-weight:500;color:#9CA3AF;padding:9px 0">Mains</div>
+                  <div style="font-size:10.5px;font-weight:500;color:#9CA3AF;padding:9px 0">Drinks</div>
+                  <div style="font-size:10.5px;font-weight:500;color:#9CA3AF;padding:9px 0">Desserts</div>
+                </div>
+
+                <!-- Menu items -->
+                <div style="flex:1;background:#FAF7F2;padding:10px 12px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
+
+                  <!-- Item 1 -->
+                  <div style="background:#fff;border-radius:10px;padding:10px;display:flex;gap:8px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                        <div style="width:8px;height:8px;border:1.5px solid #4D7C5F;border-radius:2px;flex-shrink:0"></div>
+                        <span style="font-size:11px;font-weight:600;color:#0F0F0F">Paneer Tikka</span>
+                      </div>
+                      <div style="font-size:9.5px;color:#9CA3AF;margin-bottom:3px">Creamy marinade · 4 pcs</div>
+                      <div style="font-size:12px;font-weight:700;color:#0F0F0F">₹280</div>
+                    </div>
+                    <div style="width:56px;height:50px;border-radius:9px;background:linear-gradient(135deg,#FDE8C8,#F5A623);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;position:relative">
+                      🧀
+                      <div style="position:absolute;bottom:3px;right:3px;width:16px;height:16px;background:#C2410C;border-radius:50%;display:flex;align-items:center;justify-content:center">
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M4 1.5v5M1.5 4h5" stroke="white" stroke-width="1.5" stroke-linecap="round"></path></svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Item 2 — AI suggested -->
+                  <div style="background:#fff;border-radius:10px;padding:10px;display:flex;gap:8px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04);border:1.5px solid rgba(194,65,12,.15)">
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:2px">
+                        <div style="width:8px;height:8px;border:1.5px solid #C2410C;border-radius:2px;flex-shrink:0"></div>
+                        <span style="font-size:11px;font-weight:600;color:#0F0F0F">Chicken Tikka</span>
+                        <span style="background:#FEF3EE;color:#C2410C;font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px">✦ Popular</span>
+                      </div>
+                      <div style="font-size:9.5px;color:#9CA3AF;margin-bottom:3px">Tandoor · 6 pcs</div>
+                      <div style="font-size:12px;font-weight:700;color:#0F0F0F">₹340</div>
+                    </div>
+                    <div style="width:56px;height:50px;border-radius:9px;background:linear-gradient(135deg,#F5D5A0,#E08020);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🍗</div>
+                  </div>
+
+                  <!-- Item 3 -->
+                  <div style="background:#fff;border-radius:10px;padding:10px;display:flex;gap:8px;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                        <div style="width:8px;height:8px;border:1.5px solid #4D7C5F;border-radius:2px;flex-shrink:0"></div>
+                        <span style="font-size:11px;font-weight:600;color:#0F0F0F">Samosa (2 pcs)</span>
+                      </div>
+                      <div style="font-size:9.5px;color:#9CA3AF;margin-bottom:3px">Mint chutney · Tamarind</div>
+                      <div style="font-size:12px;font-weight:700;color:#0F0F0F">₹120</div>
+                    </div>
+                    <div style="width:56px;height:50px;border-radius:9px;background:linear-gradient(135deg,#FDF6D8,#F0C020);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🥟</div>
+                  </div>
+                </div>
+
+                <!-- Cart bar -->
+                <div style="background:#FAF7F2;padding:8px 12px 14px;flex-shrink:0">
+                  <div style="background:#C2410C;border-radius:11px;padding:11px 16px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 14px rgba(194,65,12,.35)">
+                    <div>
+                      <div style="font-size:9.5px;color:rgba(255,255,255,.65)">2 items</div>
+                      <div style="font-size:13px;font-weight:700;color:#fff">View Cart · ₹620</div>
+                    </div>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h2l.6 3M6 9h9l-1.5 5H6L4 5H2"></path><circle cx="7.5" cy="16" r="1"></circle><circle cx="14.5" cy="16" r="1"></circle></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating badge: order confirmed -->
+          <div style="position:absolute;top:-10px;right:-22px;background:#fff;border-radius:12px;padding:9px 13px;box-shadow:0 8px 24px rgba(0,0,0,.12);display:flex;align-items:center;gap:8px">
+            <div style="width:26px;height:26px;background:#4D7C5F;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+            <div>
+              <div style="font-size:10.5px;font-weight:700;color:#0F0F0F">Order placed</div>
+              <div style="font-size:9.5px;color:#9CA3AF">via UPI · instant</div>
+            </div>
+          </div>
+
+          <!-- Floating badge: music -->
+          <div style="position:absolute;bottom:70px;left:-32px;background:#fff;border-radius:12px;padding:9px 13px;box-shadow:0 8px 24px rgba(0,0,0,.12);display:flex;align-items:center;gap:8px">
+            <div style="width:26px;height:26px;background:#1C1C1E;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">🎵</div>
+            <div>
+              <div style="font-size:10.5px;font-weight:700;color:#0F0F0F">Queued by Riya</div>
+              <div style="font-size:9.5px;color:#9CA3AF">Kesariya · Arijit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST STRIP ── -->
+<section style="background:#fff;padding:28px 40px;border-top:1px solid rgba(0,0,0,.04);border-bottom:1px solid rgba(0,0,0,.04)">
+  <div style="max-width:1200px;margin:0 auto">
+    <p style="text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#D1D5DB;margin-bottom:22px">Built for cafes, restaurants &amp; hotels across India</p>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px">
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><div style="width:20px;height:20px;border-radius:5px;background:#0F0F0F"></div>Dhaba House</div>
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><div style="width:20px;height:20px;border-radius:50%;background:#0F0F0F"></div>The Grand Bandra</div>
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><div style="width:8px;height:20px;border-radius:3px;background:#0F0F0F"></div>Chai Point</div>
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><div style="width:20px;height:14px;border-radius:3px;background:#0F0F0F"></div>Boteco Goa</div>
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #0F0F0F"></div>Leela Resorts</div>
+      <div style="opacity:.35;font-size:14px;font-weight:700;color:#0F0F0F;letter-spacing:-.02em;display:flex;align-items:center;gap:7px"><svg width="20" height="20" viewBox="0 0 20 20" fill="#0F0F0F"><path d="M10 2L2 7v11h6v-4h4v4h6V7z"></path></svg>Urban Tadka</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section style="background:#FAF7F2;padding:96px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#C2410C;margin-bottom:12px">The Problem</div>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-.035em;line-height:1.1;color:#0F0F0F">The system is working<br>against you.</h2>
+    </div>
+
+    <div class="g-3">
+      <div class="card-hover" style="background:#fff;border-radius:18px;padding:32px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="width:42px;height:42px;background:#FEF3EE;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#C2410C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8"></path><path d="M10 6v4l-3 3"></path><path d="M2 14l4 4M2 18l4-4"></path></svg>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.2;color:#0F0F0F;margin-bottom:10px">Aggregators eat 25–30% of every order.</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">Your margins shrink while theirs grow. Every order through Zomato or Swiggy is a rent you pay to reach your own customer.</p>
+      </div>
+
+      <div class="card-hover" style="background:#fff;border-radius:18px;padding:32px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="width:42px;height:42px;background:#FEF3EE;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#C2410C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="14" height="11" rx="2"></rect><path d="M7 6V4a2 2 0 014 0v2"></path><circle cx="10" cy="12" r="1.5" fill="#C2410C"></circle></svg>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.2;color:#0F0F0F;margin-bottom:10px">You don't own your customer data.</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">Zomato and Swiggy do. You can't retarget, you can't personalise, you can't build loyalty. Your customers live on someone else's platform.</p>
+      </div>
+
+      <div class="card-hover" style="background:#fff;border-radius:18px;padding:32px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="width:42px;height:42px;background:#FEF3EE;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#C2410C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="13" rx="2"></rect><path d="M15 2v4M5 2v4M2 10h16"></path><path d="M6 14h2M10 14h4"></path></svg>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.2;color:#0F0F0F;margin-bottom:10px">Digital ordering takes weeks to set up.</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">And costs lakhs. Lengthy onboarding, complex integrations, and a tech team most restaurant owners simply don't have or need.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<div id="features">
+
+  <!-- F1: Scan & Order — white bg, text left, visual right -->
+  <section style="background:#fff;padding:88px 40px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="g-2">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:#FEF3EE;border-radius:100px;padding:5px 12px;margin-bottom:22px">
+            <div style="width:5px;height:5px;background:#C2410C;border-radius:50%"></div>
+            <span style="font-size:11px;font-weight:700;color:#C2410C;letter-spacing:.06em;text-transform:uppercase">Scan &amp; Order</span>
+          </div>
+          <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.12;color:#0F0F0F;margin-bottom:16px">Order and pay. No app download needed.</h2>
+          <p style="font-size:17px;line-height:1.72;color:#6B7280;margin-bottom:32px">Guests scan your table QR, browse your live menu, add items to cart, and pay via UPI — all in under 2 minutes. Every direct order saves you 25–30% in aggregator commission.</p>
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">UPI, cards &amp; wallets — all payment methods supported</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Auto-generated GST bills, ready for audit</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Kitchen display system integration, real-time updates</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR visual -->
+        <div style="display:flex;justify-content:center;align-items:center">
+          <div style="position:relative;width:300px;height:360px;background:linear-gradient(145deg,#FEF3EE 0%,#FDE8D8 100%);border-radius:24px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(194,65,12,.07)"></div>
+            <div style="position:absolute;bottom:-40px;left:-40px;width:150px;height:150px;border-radius:50%;background:rgba(194,65,12,.05)"></div>
+            <div style="background:#fff;border-radius:20px;padding:28px 28px 24px;box-shadow:0 24px 64px rgba(0,0,0,.12);text-align:center;position:relative">
+              <!-- QR code visual -->
+              <div style="width:116px;height:116px;margin:0 auto 16px;position:relative">
+                <!-- Corner squares -->
+                <div style="position:absolute;top:0;left:0;width:30px;height:30px;border:3px solid #0F0F0F;border-radius:5px"></div>
+                <div style="position:absolute;top:4px;left:4px;width:18px;height:18px;background:#0F0F0F;border-radius:2px"></div>
+                <div style="position:absolute;top:0;right:0;width:30px;height:30px;border:3px solid #0F0F0F;border-radius:5px"></div>
+                <div style="position:absolute;top:4px;right:4px;width:18px;height:18px;background:#0F0F0F;border-radius:2px"></div>
+                <div style="position:absolute;bottom:0;left:0;width:30px;height:30px;border:3px solid #0F0F0F;border-radius:5px"></div>
+                <div style="position:absolute;bottom:4px;left:4px;width:18px;height:18px;background:#0F0F0F;border-radius:2px"></div>
+                <!-- Center module with logo -->
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;background:#C2410C;border-radius:8px;display:flex;align-items:center;justify-content:center">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="white" stroke-width="1.5"></circle><circle cx="8" cy="8" r="2.5" fill="white"></circle></svg>
+                </div>
+                <!-- Data modules (decorative) -->
+                <div style="position:absolute;top:36px;left:0;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:42px;left:6px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:36px;left:12px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:48px;left:0;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:54px;left:9px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:42px;right:0;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:48px;right:8px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;top:36px;right:12px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;bottom:36px;right:0;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+                <div style="position:absolute;bottom:42px;right:8px;width:3px;height:3px;background:#0F0F0F;border-radius:1px"></div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#0F0F0F">Scan to order</div>
+              <div style="font-size:11px;color:#9CA3AF;margin-top:3px">Table 5 · Café Aroha</div>
+            </div>
+            <!-- Stat badge -->
+            <div style="position:absolute;bottom:20px;right:20px;background:#0F0F0F;border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:6px">
+              <span style="font-size:15px;font-weight:900;color:#FAF7F2">30%</span>
+              <span style="font-size:10px;color:rgba(250,247,242,.5);line-height:1.3">more<br>margin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F2: AI Menu — cream bg, visual LEFT, text right -->
+  <section style="background:#FAF7F2;padding:88px 40px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="g-2">
+        <!-- Visual: paper → digital (LEFT on desktop) -->
+        <div style="display:flex;justify-content:center;align-items:center">
+          <div style="position:relative;width:320px;height:360px">
+            <!-- Paper menu (behind, tilted) -->
+            <div style="position:absolute;top:0;left:0;width:190px;background:#fff;border-radius:14px;padding:20px;box-shadow:0 8px 28px rgba(0,0,0,.1);transform:rotate(-5deg);z-index:1">
+              <div style="font-size:13px;font-weight:800;color:#0F0F0F;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #F3F4F6">Menu</div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#374151"><span>Paneer Tikka</span><span>₹280</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#374151"><span>Dal Makhani</span><span>₹320</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280"><span>Butter Naan</span><span>₹60</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280"><span>Filter Coffee</span><span>₹80</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280"><span>Masala Chai</span><span>₹50</span></div>
+                <div style="display:flex;justify-content:space-between;font-size:11px;color:#6B7280"><span>Gulab Jamun</span><span>₹90</span></div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div style="position:absolute;top:50%;left:46%;transform:translate(-50%,-50%);width:40px;height:40px;background:#C2410C;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:10;box-shadow:0 4px 16px rgba(194,65,12,.4)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h8M8.5 4.5l4 3.5-4 3.5"></path></svg>
+            </div>
+
+            <!-- Digital menu card (in front, right) -->
+            <div style="position:absolute;bottom:0;right:0;width:200px;background:#0F0F0F;border-radius:16px;padding:18px;box-shadow:0 16px 48px rgba(0,0,0,.2);z-index:2">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+                <div style="width:6px;height:6px;background:#4D7C5F;border-radius:50%"></div>
+                <span style="font-size:9.5px;font-weight:700;color:#4D7C5F;letter-spacing:.06em">AI DIGITIZED</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:rgba(255,255,255,.07);border-radius:9px;padding:9px 10px">
+                  <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:3px">Paneer Tikka</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="display:flex;align-items:center;gap:4px"><div style="width:6px;height:6px;border:1px solid #4D7C5F;border-radius:1px"></div><span style="font-size:9.5px;color:rgba(255,255,255,.4)">Veg</span></div>
+                    <span style="font-size:11px;font-weight:700;color:#fff">₹280</span>
+                  </div>
+                </div>
+                <div style="background:rgba(255,255,255,.07);border-radius:9px;padding:9px 10px;border:1px solid rgba(194,65,12,.3)">
+                  <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:3px">Dal Makhani</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="display:flex;align-items:center;gap:4px"><div style="width:6px;height:6px;border:1px solid #4D7C5F;border-radius:1px"></div><span style="font-size:9.5px;color:rgba(255,255,255,.4)">Veg</span></div>
+                    <span style="font-size:11px;font-weight:700;color:#fff">₹320</span>
+                  </div>
+                  <div style="font-size:9px;color:#C2410C;margin-top:5px">✦ Pairs well with Butter Naan</div>
+                </div>
+                <div style="background:rgba(255,255,255,.07);border-radius:9px;padding:9px 10px">
+                  <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:3px">Filter Coffee</div>
+                  <div style="display:flex;justify-content:space-between">
+                    <span style="font-size:9.5px;color:rgba(255,255,255,.4)">Beverages</span>
+                    <span style="font-size:11px;font-weight:700;color:#fff">₹80</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text (RIGHT on desktop) -->
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:#FEF3EE;border-radius:100px;padding:5px 12px;margin-bottom:22px">
+            <div style="width:5px;height:5px;background:#C2410C;border-radius:50%"></div>
+            <span style="font-size:11px;font-weight:700;color:#C2410C;letter-spacing:.06em;text-transform:uppercase">AI Menu</span>
+          </div>
+          <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.12;color:#0F0F0F;margin-bottom:16px">Your menu, live in 5 minutes.</h2>
+          <p style="font-size:17px;line-height:1.72;color:#6B7280;margin-bottom:32px">Photograph your paper menu. Plato's AI extracts every dish, price, and category — no manual data entry. It also suggests smart add-ons at checkout, lifting average order value by 15–25%.</p>
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Multi-language — Hindi, Tamil, Telugu and more</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Veg / Non-veg indicators auto-detected</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Seasonal updates in seconds, not days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F3: Pick the Vibe — DARK section, the viral hook -->
+  <section id="music" style="background:#0F0F0F;padding:88px 40px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="g-2">
+        <!-- Text left -->
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(194,65,12,.18);border-radius:100px;padding:5px 12px;margin-bottom:22px">
+            <div style="width:5px;height:5px;background:#C2410C;border-radius:50%"></div>
+            <span style="font-size:11px;font-weight:700;color:#C2410C;letter-spacing:.06em;text-transform:uppercase">Pick the Vibe</span>
+          </div>
+          <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.12;color:#FAF7F2;margin-bottom:16px">Let your guests<br>set the mood.</h2>
+          <p style="font-size:17px;line-height:1.72;color:rgba(250,247,242,.5);margin-bottom:36px">Guests queue songs from their phone. Your cafe becomes a shared, interactive experience — the first feature in India that turns dining into something guests genuinely talk about.</p>
+
+          <div style="display:flex;gap:40px;margin-bottom:40px">
+            <div>
+              <div style="font-size:38px;font-weight:900;color:#FAF7F2;letter-spacing:-.04em;line-height:1">3×</div>
+              <div style="font-size:12.5px;color:rgba(250,247,242,.4);margin-top:4px">longer table time</div>
+            </div>
+            <div>
+              <div style="font-size:38px;font-weight:900;color:#FAF7F2;letter-spacing:-.04em;line-height:1">92%</div>
+              <div style="font-size:12.5px;color:rgba(250,247,242,.4);margin-top:4px">guests share the feature</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:rgba(77,124,95,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:rgba(250,247,242,.65)">Licensed streaming — compliant, zero hassle</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:rgba(77,124,95,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:rgba(250,247,242,.65)">Owner-controlled genres and veto list</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:rgba(77,124,95,.7);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:rgba(250,247,242,.65)">Works with your existing speaker setup</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Music phone mockup (right) -->
+        <div style="display:flex;justify-content:flex-end;align-items:center">
+          <div style="position:relative">
+            <!-- Glow -->
+            <div style="position:absolute;inset:-20%;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(194,65,12,.15) 0%,transparent 70%);pointer-events:none"></div>
+
+            <div style="position:relative;width:260px;height:530px;background:#1C1C1E;border-radius:48px;padding:7px;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07)">
+              <div style="width:100%;height:100%;background:#111;border-radius:43px;overflow:hidden;position:relative;display:flex;flex-direction:column">
+                <!-- Dynamic island -->
+                <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:90px;height:24px;background:#000;border-radius:100px;z-index:10"></div>
+
+                <!-- Header -->
+                <div style="padding:44px 18px 12px;flex-shrink:0">
+                  <div style="font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.08em;margin-bottom:3px">CAFÉ AROHA</div>
+                  <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-.025em">Table Vibes 🎵</div>
+                </div>
+
+                <!-- Now playing card -->
+                <div style="margin:0 14px 14px;background:linear-gradient(135deg,#200D0D,#2D1010);border-radius:16px;padding:16px;border:1px solid rgba(194,65,12,.2);flex-shrink:0">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+                    <!-- Waveform bars -->
+                    <div style="display:flex;align-items:flex-end;gap:2px;height:20px">
+                      <div class="wave" style="height:8px;animation-delay:0s"></div>
+                      <div class="wave" style="height:16px;animation-delay:.18s"></div>
+                      <div class="wave" style="height:12px;animation-delay:.08s"></div>
+                      <div class="wave" style="height:20px;animation-delay:.28s"></div>
+                      <div class="wave" style="height:7px;animation-delay:.45s"></div>
+                    </div>
+                    <span style="font-size:9px;font-weight:700;color:#C2410C;letter-spacing:.07em">NOW PLAYING</span>
+                  </div>
+                  <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:1px">Tum Hi Ho</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:12px">Arijit Singh · Aashiqui 2</div>
+                  <div style="background:rgba(255,255,255,.1);border-radius:2px;height:2.5px;margin-bottom:6px">
+                    <div style="width:58%;height:100%;background:#C2410C;border-radius:2px"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-size:9.5px;color:rgba(255,255,255,.3)">
+                    <span>2:34</span><span>4:21</span>
+                  </div>
+                </div>
+
+                <!-- Queue -->
+                <div style="padding:0 14px;flex:1;overflow:hidden">
+                  <div style="font-size:9.5px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.06em;margin-bottom:9px">UP NEXT</div>
+                  <div style="display:flex;flex-direction:column;gap:7px">
+                    <div style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border-radius:10px;padding:9px 11px">
+                      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#2D1B4E,#5B2D8E);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🎵</div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:11.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Kesariya</div>
+                        <div style="font-size:9.5px;color:rgba(255,255,255,.35)">Arijit Singh · Table 3</div>
+                      </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border-radius:10px;padding:9px 11px">
+                      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1A3040,#2D6080);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🎶</div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:11.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Raataan Lambiyan</div>
+                        <div style="font-size:9.5px;color:rgba(255,255,255,.35)">Jubin Nautiyal · You</div>
+                      </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);border-radius:10px;padding:9px 11px">
+                      <div style="width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,#1B2840,#3060A0);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">🎸</div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:11.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Chaleya</div>
+                        <div style="font-size:9.5px;color:rgba(255,255,255,.35)">Arijit Singh · Table 7</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Add to queue -->
+                <div style="padding:10px 14px 16px;flex-shrink:0">
+                  <div style="background:#C2410C;border-radius:11px;padding:12px;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 4px 18px rgba(194,65,12,.4)">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2.5v9M2.5 7h9" stroke="white" stroke-width="2" stroke-linecap="round"></path></svg>
+                    <span style="font-size:13px;font-weight:700;color:#fff">Add to Queue</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating notification -->
+            <div style="position:absolute;top:-8px;left:-36px;background:#1C1C1E;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:9px 12px;display:flex;align-items:center;gap:8px">
+              <div style="width:24px;height:24px;border-radius:50%;background:#C2410C;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">R</div>
+              <div>
+                <div style="font-size:10.5px;font-weight:600;color:#FAF7F2">Riya queued a song</div>
+                <div style="font-size:9.5px;color:rgba(250,247,242,.35)">Phir Aur Kya Chahiye</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F4: Hotels — white bg, text left, visual right -->
+  <section id="hotels" style="background:#fff;padding:88px 40px">
+    <div style="max-width:1200px;margin:0 auto">
+      <div class="g-2">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:6px;background:#F0F7F3;border-radius:100px;padding:5px 12px;margin-bottom:22px">
+            <div style="width:5px;height:5px;background:#4D7C5F;border-radius:50%"></div>
+            <span style="font-size:11px;font-weight:700;color:#4D7C5F;letter-spacing:.06em;text-transform:uppercase">Hotels &amp; Resorts</span>
+          </div>
+          <h2 style="font-size:clamp(26px,3.2vw,40px);font-weight:900;letter-spacing:-.03em;line-height:1.12;color:#0F0F0F;margin-bottom:16px">One platform for every outlet in your property.</h2>
+          <p style="font-size:17px;line-height:1.72;color:#6B7280;margin-bottom:32px">In-room dining, pool bar, restaurant, banquet — all in one system. Guests order from their room and charge to the room or pay via UPI. No coordination chaos.</p>
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Charge-to-room with PMS integration</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Multi-outlet analytics in one dashboard</span>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:11px">
+              <div style="width:19px;height:19px;border-radius:6px;background:#4D7C5F;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></div>
+              <span style="font-size:14.5px;color:#374151">Custom branding per outlet — one backend</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hotel UI card (right) -->
+        <div style="display:flex;justify-content:flex-end;align-items:center">
+          <div style="width:300px;background:#FAF7F2;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.08);border:1px solid rgba(0,0,0,.04)">
+            <div style="background:#0F0F0F;padding:20px 22px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+                <div style="font-size:9.5px;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.08em">THE GRAND BANDRA</div>
+                <div style="font-size:9.5px;color:rgba(255,255,255,.25)">Room 412</div>
+              </div>
+              <div style="font-size:19px;font-weight:800;color:#FAF7F2;letter-spacing:-.025em">In-Room Dining</div>
+              <div style="font-size:11.5px;color:rgba(250,247,242,.4);margin-top:4px">Open until midnight · 8:32 PM</div>
+            </div>
+            <div style="background:#fff;padding:12px 18px;display:flex;gap:8px;border-bottom:1px solid #F3F4F6;overflow:hidden">
+              <div style="background:#0F0F0F;border-radius:7px;padding:5px 13px;white-space:nowrap"><span style="font-size:11px;font-weight:700;color:#fff">Room Service</span></div>
+              <div style="background:#FAF7F2;border-radius:7px;padding:5px 13px;white-space:nowrap"><span style="font-size:11px;font-weight:500;color:#9CA3AF">The Grill</span></div>
+              <div style="background:#FAF7F2;border-radius:7px;padding:5px 13px;white-space:nowrap"><span style="font-size:11px;font-weight:500;color:#9CA3AF">Pool Bar</span></div>
+            </div>
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;background:#fff;border-radius:11px">
+                <div>
+                  <div style="font-size:12.5px;font-weight:600;color:#0F0F0F">Club Sandwich</div>
+                  <div style="font-size:10.5px;color:#9CA3AF">With fries · Veg</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:13px;font-weight:700;color:#0F0F0F">₹480</div>
+                  <div style="width:26px;height:26px;background:#C2410C;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-top:4px;margin-left:auto"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 2v7M2 5.5h7" stroke="white" stroke-width="1.75" stroke-linecap="round"></path></svg></div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 12px;background:#fff;border-radius:11px">
+                <div>
+                  <div style="font-size:12.5px;font-weight:600;color:#0F0F0F">Dal Makhani + Naan</div>
+                  <div style="font-size:10.5px;color:#9CA3AF">Combo · Veg</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-size:13px;font-weight:700;color:#0F0F0F">₹560</div>
+                  <div style="width:26px;height:26px;background:#C2410C;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-top:4px;margin-left:auto"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 2v7M2 5.5h7" stroke="white" stroke-width="1.75" stroke-linecap="round"></path></svg></div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:12px 18px 16px;border-top:1px solid #F3F4F6;background:#fff">
+              <div style="background:#0F0F0F;border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+                <div>
+                  <div style="font-size:10.5px;color:rgba(255,255,255,.4)">Charge to room or UPI</div>
+                  <div style="font-size:13px;font-weight:700;color:#fff">Place Order</div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h8M8.5 4.5l4 3.5-4 3.5"></path></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── AUDIENCES ── -->
+<section style="background:#FAF7F2;padding:96px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#C2410C;margin-bottom:12px">Built For</div>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-.035em;line-height:1.1;color:#0F0F0F">One platform, three worlds.</h2>
+    </div>
+    <div class="g-3">
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:34px 30px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="width:46px;height:46px;border-radius:13px;background:#FEF3EE;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#C2410C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l8-6 8 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path><path d="M8 21V12h6v9"></path></svg>
+        </div>
+        <h3 style="font-size:21px;font-weight:800;letter-spacing:-.025em;color:#0F0F0F;margin-bottom:9px">Cafes &amp; Restaurants</h3>
+        <p style="font-size:14px;line-height:1.68;color:#6B7280;margin-bottom:22px">From a 10-table Bandra café to a 200-cover chain. Direct ordering, full data ownership.</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>QR ordering &amp; UPI</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>GST billing &amp; reports</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>AI upsell at checkout</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>Customer-controlled music</div>
+        </div>
+      </div>
+
+      <div class="card-hover" style="background:#0F0F0F;border-radius:20px;padding:34px 30px;border:1px solid rgba(255,255,255,.06);box-shadow:0 4px 16px rgba(0,0,0,.1)">
+        <div style="width:46px;height:46px;border-radius:13px;background:rgba(194,65,12,.18);display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#C2410C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="18" height="14" rx="2"></rect><path d="M7 21h8M11 17v4"></path></svg>
+        </div>
+        <h3 style="font-size:21px;font-weight:800;letter-spacing:-.025em;color:#FAF7F2;margin-bottom:9px">Hotels</h3>
+        <p style="font-size:14px;line-height:1.68;color:rgba(250,247,242,.45);margin-bottom:22px">Digitize in-room dining and streamline F&amp;B across your property — without a big IT project.</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.7)"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>In-room dining via QR</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.7)"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>Charge-to-room billing</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.7)"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>Multi-restaurant support</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.7)"><div style="width:5px;height:5px;border-radius:50%;background:#C2410C;flex-shrink:0"></div>PMS integration</div>
+        </div>
+      </div>
+
+      <div class="card-hover" style="background:#fff;border-radius:20px;padding:34px 30px;border:1px solid rgba(0,0,0,.05);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="width:46px;height:46px;border-radius:13px;background:#F0F7F3;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#4D7C5F" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="9"></circle><path d="M11 2.5C8.5 6 7 8.5 7 11s1.5 5 4 8.5M11 2.5C13.5 6 15 8.5 15 11s-1.5 5-4 8.5M2.5 11h17"></path></svg>
+        </div>
+        <h3 style="font-size:21px;font-weight:800;letter-spacing:-.025em;color:#0F0F0F;margin-bottom:9px">Resorts</h3>
+        <p style="font-size:14px;line-height:1.68;color:#6B7280;margin-bottom:22px">Pool bar, fine dining, beach shack, banquet — unified analytics, one platform.</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#4D7C5F;flex-shrink:0"></div>Single platform for all outlets</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#4D7C5F;flex-shrink:0"></div>Pool bar to fine dining</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#4D7C5F;flex-shrink:0"></div>Unified analytics</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><div style="width:5px;height:5px;border-radius:50%;background:#4D7C5F;flex-shrink:0"></div>Custom branding per outlet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section style="background:#fff;padding:96px 40px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:64px">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#C2410C;margin-bottom:12px">Setup</div>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-.035em;line-height:1.1;color:#0F0F0F">Live in 5 minutes.</h2>
+    </div>
+    <div class="g-steps">
+      <div style="background:#FAF7F2;border-radius:18px;padding:32px">
+        <div style="width:40px;height:40px;border-radius:12px;background:#C2410C;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <span style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em">1</span>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;color:#0F0F0F;margin-bottom:8px">Sign up free</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">Create your account in under a minute. No credit card, no commitment, no salesperson call required.</p>
+      </div>
+      <div style="background:#FAF7F2;border-radius:18px;padding:32px">
+        <div style="width:40px;height:40px;border-radius:12px;background:#C2410C;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <span style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em">2</span>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;color:#0F0F0F;margin-bottom:8px">Upload your menu</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">Photograph your paper menu or upload a PDF. Our AI reads it, organises every dish and price, and builds your digital menu instantly.</p>
+      </div>
+      <div style="background:#FAF7F2;border-radius:18px;padding:32px">
+        <div style="width:40px;height:40px;border-radius:12px;background:#C2410C;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+          <span style="font-size:18px;font-weight:900;color:#fff;letter-spacing:-.02em">3</span>
+        </div>
+        <h3 style="font-size:19px;font-weight:800;letter-spacing:-.025em;color:#0F0F0F;margin-bottom:8px">Print your QR codes</h3>
+        <p style="font-size:14.5px;line-height:1.7;color:#6B7280">Download your table QR codes, print them out, and start taking orders today. That's it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section id="pricing" style="background:#FAF7F2;padding:96px 40px">
+  <div style="max-width:1100px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#C2410C;margin-bottom:12px">Pricing</div>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:900;letter-spacing:-.035em;line-height:1.1;color:#0F0F0F">Simple, honest pricing.</h2>
+      <p style="font-size:15.5px;color:#9CA3AF;margin-top:12px">Set up in 5 minutes. Cancel anytime. No hidden charges.</p>
+    </div>
+
+    <div class="g-pricing">
+      <!-- Free -->
+      <div style="background:#fff;border-radius:20px;padding:32px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#9CA3AF;margin-bottom:14px">Free</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:5px">
+          <span style="font-size:38px;font-weight:900;letter-spacing:-.04em;color:#0F0F0F">₹0</span>
+        </div>
+        <div style="font-size:12.5px;color:#9CA3AF;margin-bottom:28px">Forever · Up to 50 orders/mo</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:30px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F3F4F6"></circle><path d="M4 7l2 2 4-4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>QR menu + ordering</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F3F4F6"></circle><path d="M4 7l2 2 4-4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Up to 50 orders/month</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F3F4F6"></circle><path d="M4 7l2 2 4-4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>UPI payments</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F3F4F6"></circle><path d="M4 7l2 2 4-4" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Basic analytics</div>
+        </div>
+        <a href="#" class="pricing-link" style="display:block;text-align:center;border:1.5px solid rgba(0,0,0,.14);border-radius:10px;padding:12px;font-size:14px;font-weight:600;color:#0F0F0F;transition:background .15s ease">Start Free</a>
+      </div>
+
+      <!-- Pro — highlighted -->
+      <div class="pricing-featured" style="background:#0F0F0F;border-radius:20px;padding:32px;border:1px solid rgba(255,255,255,.07);box-shadow:0 24px 64px rgba(0,0,0,.16),0 0 0 1.5px rgba(194,65,12,.35);position:relative;transform:scale(1.04)">
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#C2410C;color:#fff;font-size:10.5px;font-weight:700;padding:4px 14px;border-radius:100px;white-space:nowrap;letter-spacing:.03em">Most Popular</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,247,242,.35);margin-bottom:14px">Pro</div>
+        <div style="display:flex;align-items:baseline;gap:1px;margin-bottom:5px">
+          <span style="font-size:22px;font-weight:700;color:rgba(250,247,242,.5)">₹</span>
+          <span style="font-size:38px;font-weight:900;letter-spacing:-.04em;color:#FAF7F2">799</span>
+          <span style="font-size:13px;color:rgba(250,247,242,.3);margin-left:3px">/mo</span>
+        </div>
+        <div style="font-size:12.5px;color:rgba(250,247,242,.3);margin-bottom:28px">Everything in Free, plus:</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:30px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.78)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(194,65,12,.25)"></circle><path d="M4 7l2 2 4-4" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Unlimited orders</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.78)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(194,65,12,.25)"></circle><path d="M4 7l2 2 4-4" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>AI upsell at checkout</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.78)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(194,65,12,.25)"></circle><path d="M4 7l2 2 4-4" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>WhatsApp order updates</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.78)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(194,65,12,.25)"></circle><path d="M4 7l2 2 4-4" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>GST billing &amp; reports</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:rgba(250,247,242,.78)"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="rgba(194,65,12,.25)"></circle><path d="M4 7l2 2 4-4" stroke="#C2410C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Customer-controlled music</div>
+        </div>
+        <a href="#" class="btn-primary" style="display:block;text-align:center;background:#C2410C;border-radius:10px;padding:13px;font-size:14px;font-weight:700;color:#fff;transition:background .15s ease">Start 14-day trial</a>
+      </div>
+
+      <!-- Hospitality -->
+      <div style="background:#fff;border-radius:20px;padding:32px;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.03)">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#4D7C5F;margin-bottom:14px">Hospitality</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:5px">
+          <span style="font-size:32px;font-weight:900;letter-spacing:-.03em;color:#0F0F0F">Custom</span>
+        </div>
+        <div style="font-size:12.5px;color:#9CA3AF;margin-bottom:28px">Everything in Pro, plus:</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-bottom:30px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Multi-outlet management</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>In-room dining for hotels</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Dedicated support</div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#374151"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" fill="#F0F7F3"></circle><path d="M4 7l2 2 4-4" stroke="#4D7C5F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Custom integrations</div>
+        </div>
+        <a href="#" class="pricing-link" style="display:block;text-align:center;border:1.5px solid rgba(0,0,0,.14);border-radius:10px;padding:12px;font-size:14px;font-weight:600;color:#0F0F0F;transition:background .15s ease">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq" style="background:#fff;padding:96px 40px">
+  <div style="max-width:720px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:56px">
+      <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#C2410C;margin-bottom:12px">FAQ</div>
+      <h2 style="font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.035em;line-height:1.1;color:#0F0F0F">Questions we actually get.</h2>
+    </div>
+
+    <sc-for list="{{ faqData }}" as="faq" hint-placeholder-count="6">
+      <div class="faq-row" style="border-bottom:1px solid #F3F4F6" onClick="{{ faq.toggle }}">
+        <div style="padding:20px 4px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <span style="font-size:16.5px;font-weight:600;color:#0F0F0F;line-height:1.35">{{ faq.question }}</span>
+          <div style="{{ faq.chevronStyle }}">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.75L9 11.25l4.5-4.5"></path></svg>
+          </div>
+        </div>
+        <div style="{{ faq.answerStyle }}">
+          <p style="font-size:15px;line-height:1.78;color:#6B7280;padding-bottom:20px;padding-right:36px">{{ faq.answer }}</p>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section style="background:#0F0F0F;padding:120px 40px">
+  <div style="max-width:680px;margin:0 auto;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(194,65,12,.14);border:1px solid rgba(194,65,12,.25);border-radius:100px;padding:6px 16px;margin-bottom:32px">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="#C2410C" stroke-width="1.25"></circle><circle cx="6" cy="6" r="2" fill="#C2410C"></circle></svg>
+      <span style="font-size:12px;font-weight:600;color:#C2410C;letter-spacing:.04em">Free forever · No credit card</span>
+    </div>
+    <h2 style="font-size:clamp(34px,5.5vw,60px);font-weight:900;letter-spacing:-.04em;line-height:1.05;color:#FAF7F2;margin-bottom:20px">Ready to reimagine<br>your restaurant?</h2>
+    <p style="font-size:17px;line-height:1.7;color:rgba(250,247,242,.45);margin-bottom:44px">Join the cafes, restaurants, and hotels modernizing how India dines.</p>
+    <a href="#" class="btn-primary" style="display:inline-flex;align-items:center;gap:9px;background:#C2410C;color:#fff;font-size:16px;font-weight:700;padding:17px 38px;border-radius:11px;box-shadow:0 8px 32px rgba(194,65,12,.35);transition:background .15s ease">
+      Start Free — it's on us
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8h9M8.5 4l4 4-4 4"></path></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer style="background:#0F0F0F;border-top:1px solid rgba(255,255,255,.05);padding:60px 40px 32px">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="g-footer">
+      <div>
+        <a href="#" style="display:inline-flex;align-items:center;gap:9px;margin-bottom:14px">
+          <svg width="26" height="26" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#C2410C" stroke-width="2"></circle><circle cx="15" cy="15" r="5.5" fill="#C2410C"></circle></svg>
+          <span style="font-size:16px;font-weight:700;letter-spacing:-.035em;color:#FAF7F2">plato<sup style="font-size:.5em;font-weight:500;opacity:.5;vertical-align:super;letter-spacing:0">.ai</sup></span>
+        </a>
+        <p style="font-size:13.5px;color:rgba(250,247,242,.35);margin-bottom:12px;line-height:1.6;max-width:180px">Dining, reimagined.</p>
+        <p style="font-size:12.5px;color:rgba(250,247,242,.2)">Made in India 🇮🇳</p>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,247,242,.25);margin-bottom:16px">Product</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Features</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Pricing</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">For Hotels</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Changelog</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,247,242,.25);margin-bottom:16px">Company</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">About</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Contact</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Careers</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Blog</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(250,247,242,.25);margin-bottom:16px">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Privacy</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Terms</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">API</a>
+          <a href="#" class="footer-link" style="font-size:13.5px;color:rgba(250,247,242,.45)">Help</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,.05);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+      <div style="font-size:12.5px;color:rgba(250,247,242,.25)">© 2026 Plato AI · <a href="mailto:hi@plato.ai" style="color:rgba(250,247,242,.35)">hi@plato.ai</a></div>
+      <div style="display:flex;gap:18px;align-items:center">
+        <a href="#" class="footer-link" style="color:rgba(250,247,242,.3)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r=".75" fill="currentColor"></circle></svg></a>
+        <a href="#" class="footer-link" style="color:rgba(250,247,242,.3)"><svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+        <a href="#" class="footer-link" style="color:rgba(250,247,242,.3)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path><circle cx="4" cy="4" r="2"></circle></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 900 }
+}">
+class Component extends DCLogic {
+  state = {
+    navScrolled: false,
+    faqOpen: null,
+    menuOpen: false
+  };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const scrolled = window.scrollY > 10;
+      if (scrolled !== this.state.navScrolled) {
+        this.setState({ navScrolled: scrolled });
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    const { navScrolled, faqOpen, menuOpen } = this.state;
+
+    const navStyle = {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 100,
+      background: navScrolled ? 'rgba(250,247,242,0.96)' : '#FAF7F2',
+      backdropFilter: navScrolled ? 'blur(16px)' : 'none',
+      WebkitBackdropFilter: navScrolled ? 'blur(16px)' : 'none',
+      borderBottom: navScrolled ? '1px solid rgba(0,0,0,0.08)' : '1px solid rgba(0,0,0,0.05)',
+      transition: 'border-color 0.3s ease, background 0.3s ease',
+      padding: '0 40px'
+    };
+
+    const mobileMenuStyle = menuOpen
+      ? {
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'fixed',
+          top: '64px',
+          left: 0,
+          right: 0,
+          background: '#FAF7F2',
+          padding: '16px 24px 24px',
+          borderBottom: '1px solid rgba(0,0,0,0.07)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
+          zIndex: 99
+        }
+      : { display: 'none' };
+
+    const faqItems = [
+      {
+        q: 'Do I need to replace my existing billing system?',
+        a: 'No. Plato works alongside your existing POS or billing setup. You can run both in parallel, or gradually transition — entirely at your pace. Most owners keep their existing system for the first month and switch over once they\'re comfortable.'
+      },
+      {
+        q: 'How is this different from Petpooja or Dotpe?',
+        a: 'Petpooja and Dotpe are billing tools. Plato is a full dining experience platform — QR ordering, UPI payments, AI-powered upselling, customer-controlled music, and hotel integrations, all in one product. Built for the modern dining experience, not just printing receipts.'
+      },
+      {
+        q: 'How does the music feature work? What about licensing?',
+        a: 'Guests search and queue songs directly from their phone. Plato integrates with licensed streaming APIs so you stay fully compliant — no licensing headaches. Think of it as a collaborative jukebox: guests feel heard, and your cafe gets a signature vibe that gets talked about.'
+      },
+      {
+        q: 'What about GST and compliance?',
+        a: 'Plato auto-generates GST-compliant bills and reports. CGST/SGST split, HSN codes, and monthly summaries — all handled. Works for both dine-in and takeaway, and exports are accepted by most chartered accountants as-is.'
+      },
+      {
+        q: 'Do I need high-speed internet? Does it work in tier-2/3 cities?',
+        a: 'Plato is built for Indian network conditions. It works reliably on 4G and above. We\'ve tested it in Coorg, Pondicherry, Jaisalmer, and Rajkot — if there\'s a signal, it works. Offline mode for basic POS functions is on our roadmap.'
+      },
+      {
+        q: 'How long does setup actually take?',
+        a: 'Most restaurants are live in under 5 minutes. Photograph your menu, review the AI extraction, print your QR codes. No technical expertise needed. Our fastest setup so far: 3 minutes 41 seconds, at a dhaba in Pune.'
+      }
+    ];
+
+    const faqData = faqItems.map((item, i) => ({
+      question: item.q,
+      answer: item.a,
+      toggle: () => this.setState({ faqOpen: faqOpen === i ? null : i }),
+      answerStyle: faqOpen === i
+        ? { maxHeight: '320px', overflow: 'hidden', transition: 'max-height 0.32s ease' }
+        : { maxHeight: '0', overflow: 'hidden', transition: 'max-height 0.32s ease' },
+      chevronStyle: {
+        transition: 'transform 0.28s ease',
+        transform: faqOpen === i ? 'rotate(180deg)' : 'rotate(0deg)',
+        display: 'inline-flex',
+        alignItems: 'center',
+        flexShrink: 0
+      }
+    }));
+
+    return {
+      navStyle,
+      mobileMenuStyle,
+      faqData,
+      toggleMenu: () => this.setState({ menuOpen: !menuOpen })
+    };
+  }
+}
+</script>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "Plato Landing Page";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: ≥2 visible non-fixed children, each with authored px width
+  // AND height, all within ±2px of each other. Off unless the page opts in
+  // via data-om-multi-frame on the stop element — guards against card grids
+  // and pricing tables that match the geometry but aren't separate canvases.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var cands = [];
+    for (var k = 0; k < el.children.length; k++) {
+      var ch = el.children[k];
+      var cs; try { cs = getComputedStyle(ch); } catch (e) { continue; }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position === 'fixed') continue;
+      var rc = rectOf(ch);
+      if (rc.width < 2 || rc.height < 2) continue;
+      if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+      cands.push(rc);
+    }
+    if (cands.length >= 2) {
+      var w0 = cands[0].width, h0 = cands[0].height, ok = true;
+      for (var q = 1; q < cands.length; q++)
+        if (Math.abs(cands[q].width - w0) > 2 || Math.abs(cands[q].height - h0) > 2) ok = false;
+      if (ok) return { kind: 'multi-frame', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>
