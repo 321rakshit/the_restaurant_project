@@ -12,67 +12,6 @@ export function LogoMark(props: IconProps) {
   );
 }
 
-export function GridIcon(props: IconProps) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke={colors.accent}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect x="2" y="2" width="5" height="5" />
-      <rect x="9" y="2" width="5" height="5" />
-      <rect x="2" y="9" width="5" height="5" />
-      <path d="M9 9h2v2h2v2h-2v-2h-2z" />
-    </svg>
-  );
-}
-
-export function MenuIcon(props: IconProps) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke={colors.accent}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect x="2" y="2" width="12" height="12" rx="1.5" />
-      <path d="M5 6h6M5 9h4" />
-    </svg>
-  );
-}
-
-export function MusicIcon(props: IconProps) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke={colors.accent}
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M3 10V4l8-1.5v6.5M3 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM11 9a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
-    </svg>
-  );
-}
-
 export function PhoneIcon(props: IconProps) {
   return (
     <svg
@@ -89,6 +28,27 @@ export function PhoneIcon(props: IconProps) {
       {...props}
     >
       <path d="M3.5 2.5h3l1.5 4-2 1.5a10 10 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.5 1.5C8.5 17 1 9.5 1 4A1.5 1.5 0 012.5 2.5z" />
+    </svg>
+  );
+}
+
+export function WhatsAppIcon(props: IconProps) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={colors.accent}
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ flexShrink: 0 }}
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M20.5 12a8.5 8.5 0 01-12.6 7.45L3.5 20.5l1.07-4.32A8.5 8.5 0 1120.5 12z" />
+      <path d="M9 9.5c.2 1.5 1.4 3.6 2.8 4.7 1.4 1.1 3.5 1.6 4 1.4l.9-1.4-2-1.1-1 1c-1-.3-2.1-1.2-2.8-2.3l.9-1L11 9.1 9.6 8.6 9 9.5z" />
     </svg>
   );
 }
@@ -110,20 +70,6 @@ export function MailIcon(props: IconProps) {
     >
       <rect x="2" y="3.5" width="14" height="11" rx="1.5" />
       <path d="M2.5 4.5l6 5 6-5" />
-    </svg>
-  );
-}
-
-export function CheckIcon(props: IconProps) {
-  return (
-    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" {...props}>
-      <path
-        d="M4 9l4 4 7-8"
-        stroke={colors.successGreen}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }

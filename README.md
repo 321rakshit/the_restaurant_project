@@ -1,6 +1,6 @@
 # Platofy Landing Page
 
-A new platform for Indian restaurants. Direct orders, payments, and bookings — without 25–30% aggregator commissions.
+An AI &amp; tech enablement company for the food business. Two products in development; more on the way.
 
 **Live:** https://the-restaurant-project-olive.vercel.app/
 
@@ -10,7 +10,7 @@ A new platform for Indian restaurants. Direct orders, payments, and bookings —
 - **Vite 5** — dev server and production bundler. Build output: `dist/`.
 - **Plain CSS** — global resets, animations, and `:hover` transitions live in `src/global.css`; section-level styling lives in component inline `style={{}}` objects so each component owns its own visual contract. Design tokens (colors, layout widths) are centralized in `src/tokens.ts`.
 
-The waitlist form is a controlled component with local `useState` — it does **not** yet POST to a backend. Submissions render the success state and are discarded.
+There is no waitlist form. All conversion points are direct contact (call / WhatsApp / email) — see `src/contact.ts` for the single source of truth for those links.
 
 ## Project layout
 
@@ -21,15 +21,15 @@ src/
   App.tsx               Page composition
   global.css            Resets, font defaults, grid utilities, fadeUp animation
   tokens.ts             Design tokens (colors, layout widths)
+  contact.ts            Single source of truth for phone / WhatsApp / email links
   components/
     icons.tsx           Shared SVG icon components
     Nav.tsx
     Hero.tsx
-    WhyThisMatters.tsx
+    WhatWeDo.tsx
     WhatWereBuilding.tsx
-    WhoWereFor.tsx
-    ContactNote.tsx
-    WaitlistForm.tsx
+    WhoWeAre.tsx
+    LetsTalk.tsx
     Footer.tsx
 ```
 

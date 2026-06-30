@@ -34,7 +34,7 @@ export function Nav() {
           </span>
         </a>
         <a
-          href="#waitlist"
+          href="#contact"
           className="btn-primary"
           style={{
             background: colors.accent,
@@ -45,7 +45,7 @@ export function Nav() {
             borderRadius: 8,
           }}
         >
-          Join waitlist
+          Talk to us
         </a>
       </div>
     </nav>
