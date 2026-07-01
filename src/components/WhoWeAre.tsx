@@ -1,39 +1,29 @@
-import { colors, layout } from '../tokens';
+import { useInView } from '../hooks/useInView';
 
 export function WhoWeAre() {
-  return (
-    <section
-      style={{
-        background: colors.bgWhite,
-        padding: '96px 32px',
-        borderTop: `1px solid ${colors.borderSoft}`,
-      }}
-    >
-      <div style={{ maxWidth: layout.maxWidthContent, margin: '0 auto' }}>
-        <h2
-          style={{
-            fontSize: 'clamp(28px,3.5vw,40px)',
-            fontWeight: 800,
-            letterSpacing: '-.025em',
-            color: colors.textPrimary,
-            marginBottom: 28,
-          }}
-        >
-          Who we are.
-        </h2>
+  const [ref, inView] = useInView<HTMLDivElement>();
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-          <p style={{ fontSize: 17, lineHeight: 1.75, color: colors.textSecondary }}>
-            We're a small team that understands three things well: AI, technology, and product. We're not a big
-            software company, and we don't sell bloated systems. We pay close attention to where AI is genuinely
-            useful, and we build practical products that fit into how food businesses already work.
-          </p>
-          <p style={{ fontSize: 17, lineHeight: 1.75, color: colors.textSecondary }}>
-            Think of us as the AI and tech team that restaurants, cafes, and food businesses don't have in-house — but
-            should. We do the hard part of understanding the technology, so you get tools that simply make your
-            business better.
-          </p>
-        </div>
+  return (
+    <section className="block band">
+      <svg className="band-logo" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <circle className="rim" cx="32" cy="32" r="27" />
+        <path className="smile" d="M20 35 Q32 47 44 35" />
+        <circle className="spoon" cx="20" cy="35" r="4.4" />
+      </svg>
+      <div ref={ref} className={`wrap reveal${inView ? ' in' : ''}`} style={{ position: 'relative' }}>
+        <span className="kicker">Who we are</span>
+        <h2 className="title">The AI team you don't have in-house.</h2>
+        <p>
+          We're a small team that understands three things well: AI, technology, and product. We're not a big
+          software company, and we don't sell bloated systems — we pay close attention to where AI is genuinely
+          useful, and build practical products that fit how food businesses already work.
+        </p>
+        <p>
+          <b>
+            We do the hard part of understanding the technology, so you get tools that simply make your business
+            better.
+          </b>
+        </p>
       </div>
     </section>
   );
