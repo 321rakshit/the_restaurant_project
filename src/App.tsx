@@ -1,24 +1,26 @@
-import { layout } from './tokens';
+import { useEffect } from 'react';
 import { Nav } from './components/Nav';
 import { Hero } from './components/Hero';
 import { WhatWeDo } from './components/WhatWeDo';
-import { WhatWereBuilding } from './components/WhatWereBuilding';
+import { Building } from './components/Building';
 import { WhoWeAre } from './components/WhoWeAre';
-import { LetsTalk } from './components/LetsTalk';
+import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 export function App() {
+  useEffect(() => {
+    document.body.classList.add('loaded');
+  }, []);
+
   return (
     <>
       <Nav />
-      <main style={{ paddingTop: layout.navHeight }}>
-        <Hero />
-        <WhatWeDo />
-        <WhatWereBuilding />
-        <WhoWeAre />
-        <LetsTalk />
-        <Footer />
-      </main>
+      <Hero />
+      <WhatWeDo />
+      <Building />
+      <WhoWeAre />
+      <Contact />
+      <Footer />
     </>
   );
 }

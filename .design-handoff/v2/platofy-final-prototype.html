@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Platofy — final prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FAF7F2;--surface:#FFFEFB;--clay:#F1E8D9;--sand:#E9DDC9;--line:#E4D8C4;--line-soft:#EDE3D3;
+    --ink:#17140F;--ink-soft:#615A4E;--terra:#C2410C;--terra-2:#E2712F;--terra-deep:#8F2D08;--sage:#4D7C5F;
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{background:var(--cream);color:var(--ink);font-family:"Inter",system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem)}
+  .display{font-family:"Bricolage Grotesque","Inter",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1.02}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:4px}
+
+  /* ===== LOGO: spoon-smile plate — rim static, smile draws, spoon pops ===== */
+  /* Self-running keyframes (reliable on load). Nav logo gently loops so the
+     draw is always visible; on the live site this can be set to play once. */
+  .plate .rim{fill:none;stroke:var(--terra);stroke-width:2.4}
+  .plate .smile{fill:none;stroke:var(--terra);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:smileCycle 4s var(--ease) infinite}
+  .plate .spoon{fill:var(--terra);transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0;animation:spoonCycle 4s var(--ease) infinite}
+  @keyframes smileCycle{
+    0%{stroke-dashoffset:1;opacity:1}
+    22%{stroke-dashoffset:0}
+    84%{stroke-dashoffset:0;opacity:1}
+    93%{opacity:0}
+    100%{stroke-dashoffset:1;opacity:0}
+  }
+  @keyframes spoonCycle{
+    0%{transform:scale(0);opacity:0}
+    22%{transform:scale(0);opacity:0}
+    31%{transform:scale(1.2);opacity:1}
+    39%{transform:scale(1)}
+    84%{opacity:1}
+    93%{opacity:0}
+    100%{opacity:0}
+  }
+  /* static variant (footer, decorative echoes): always show final drawn state */
+  .plate.static .smile{animation:none;stroke-dashoffset:0}
+  .plate.static .spoon{animation:none;transform:none;opacity:1}
+
+  /* ===== NAV ===== */
+  nav{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s ease}
+  nav.scrolled{border-color:var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:.55rem;font-family:"Bricolage Grotesque";font-weight:600;font-size:1.18rem;letter-spacing:-.01em}
+  .logo svg{width:28px;height:28px;flex:none}
+  .btn{font-family:"Inter";font-weight:600;font-size:.95rem;border:none;cursor:pointer;border-radius:999px;transition:transform .25s var(--ease),box-shadow .3s var(--ease),background .25s ease,color .25s ease,border-color .25s ease}
+  .btn-primary{background:var(--terra);color:#fff;padding:.72rem 1.4rem}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(194,65,12,.55)}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;padding:clamp(3.5rem,9vw,7rem) 0 clamp(4rem,10vw,7.5rem)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);display:inline-flex;align-items:center;gap:.5rem}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--terra)}
+  h1.hero-title{font-size:clamp(2.6rem,6.2vw,4.6rem);margin:1.15rem 0 0}
+  .underline-word{position:relative;display:inline-block}
+  .underline-word::after{content:"";position:absolute;left:0;bottom:.05em;height:.11em;width:100%;background:var(--terra);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .8s var(--ease) 1s}
+  body.loaded .underline-word::after{transform:scaleX(1)}
+  .lead{margin-top:1.5rem;font-size:clamp(1.02rem,1.4vw,1.18rem);color:var(--ink-soft);max-width:34ch}
+  .cta-row{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.1rem}
+  .btn-call{background:var(--terra);color:#fff;padding:.85rem 1.5rem}
+  .btn-call:hover{transform:translateY(-2px);box-shadow:0 12px 26px -8px rgba(194,65,12,.55)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);padding:.85rem 1.4rem}
+  .btn-ghost:hover{border-color:var(--terra);color:var(--terra);transform:translateY(-2px)}
+  .hero-caption{margin-top:1.6rem;font-size:.9rem;color:var(--ink-soft)}
+  .hero-caption .live{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sage);margin-right:.5rem;animation:pulse-live 2.4s infinite}
+  @keyframes pulse-live{0%{box-shadow:0 0 0 0 rgba(77,124,95,.5)}70%{box-shadow:0 0 0 8px rgba(77,124,95,0)}100%{box-shadow:0 0 0 0 rgba(77,124,95,0)}}
+
+  /* hero signature: big spoon-smile, smile draws on load */
+  .signature{position:relative;aspect-ratio:1;width:100%;max-width:400px;margin-inline:auto;display:grid;place-items:center}
+  .signature svg{width:100%;height:100%;overflow:visible}
+  .big-rim{fill:none;stroke:var(--terra);stroke-width:3.4}
+  .big-smile{fill:none;stroke:var(--terra);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:bigSmileCycle 4.5s var(--ease) infinite}
+  .big-spoon{fill:var(--terra);transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0;animation:bigSpoonCycle 4.5s var(--ease) infinite}
+  @keyframes bigSmileCycle{
+    0%{stroke-dashoffset:1;opacity:1}
+    24%{stroke-dashoffset:0}
+    84%{stroke-dashoffset:0;opacity:1}
+    93%{opacity:0}
+    100%{stroke-dashoffset:1;opacity:0}
+  }
+  @keyframes bigSpoonCycle{
+    0%{transform:scale(0);opacity:0}
+    30%{transform:scale(0);opacity:0}
+    39%{transform:scale(1.22);opacity:1}
+    47%{transform:scale(1)}
+    84%{opacity:1}
+    93%{opacity:0}
+    100%{opacity:0}
+  }
+
+  /* ===== SECTIONS ===== */
+  section.block{padding:clamp(4rem,9vw,7rem) 0}
+  .tint{background:var(--clay)}
+  .kicker{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--terra)}
+  h2.title{font-family:"Bricolage Grotesque";font-weight:700;letter-spacing:-.02em;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.05;margin-top:.7rem}
+  .what-body{max-width:60ch;color:var(--ink-soft);font-size:clamp(1rem,1.3vw,1.12rem);margin-top:1.6rem}
+  .what-body b{color:var(--ink);font-weight:600}
+
+  /* ===== PRODUCT CARDS ===== */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.6rem}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1.7rem 1.6rem 1.6rem;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease)}
+  .card:hover{transform:translateY(-6px);border-color:rgba(194,65,12,.42);box-shadow:0 24px 50px -24px rgba(23,20,15,.3)}
+  .card-motif{height:92px;margin:0 0 1.15rem;display:flex;align-items:center}
+  .card h3{font-family:"Bricolage Grotesque";font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .card p{color:var(--ink-soft);font-size:.94rem;margin-top:.55rem}
+  .card .for{margin-top:1.05rem;font-size:.82rem;font-style:italic;color:var(--ink-soft);opacity:.82;border-top:1px solid var(--line-soft);padding-top:.85rem}
+
+  .qr{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:1fr;gap:3px;width:92px;height:92px}
+  .qr i{background:var(--sand);border-radius:2px;transition:background .3s ease}
+  .qr i.on{background:var(--terra)}.qr i.anchor{background:var(--ink)}
+  @media (prefers-reduced-motion:no-preference){.card:hover .qr i:not(.anchor){animation:qrflick 1.7s steps(1) infinite}
+    .qr i:nth-child(3n){animation-delay:.2s}.qr i:nth-child(3n+1){animation-delay:.5s}.qr i:nth-child(4n){animation-delay:.85s}}
+  @keyframes qrflick{0%,100%{background:var(--sand)}45%,55%{background:var(--terra)}}
+
+  .eq{display:flex;align-items:center;gap:5px;height:92px;width:100%}
+  .eq span{flex:1;min-width:6px;background:linear-gradient(var(--terra),var(--terra-2));border-radius:6px;height:40%;transform-origin:center}
+  @media (prefers-reduced-motion:no-preference){
+    .eq span{animation:eqidle 2.4s ease-in-out infinite}
+    .card:hover .eq span{animation:eqbar 1s ease-in-out infinite}
+    .eq span:nth-child(1){animation-delay:0s}.eq span:nth-child(2){animation-delay:.13s}.eq span:nth-child(3){animation-delay:.28s}
+    .eq span:nth-child(4){animation-delay:.09s}.eq span:nth-child(5){animation-delay:.4s}.eq span:nth-child(6){animation-delay:.22s}
+    .eq span:nth-child(7){animation-delay:.05s}.eq span:nth-child(8){animation-delay:.34s}.eq span:nth-child(9){animation-delay:.17s}
+  }
+  @keyframes eqidle{0%,100%{height:34%}50%{height:58%}}
+  @keyframes eqbar{0%,100%{height:22%}50%{height:96%}}
+  .eq span:nth-child(1){height:38%}.eq span:nth-child(2){height:62%}.eq span:nth-child(3){height:88%}
+  .eq span:nth-child(4){height:54%}.eq span:nth-child(5){height:74%}.eq span:nth-child(6){height:46%}
+  .eq span:nth-child(7){height:82%}.eq span:nth-child(8){height:58%}.eq span:nth-child(9){height:40%}
+
+  .card.next{background:linear-gradient(160deg,var(--clay),var(--surface));border-style:dashed;border-color:var(--terra);border-width:1.5px}
+  .card.next:hover{border-color:var(--terra-deep)}
+  .next-motif{height:92px;display:flex;align-items:center}
+  .next-motif svg{width:92px;height:92px;overflow:visible}
+  .np{fill:none;stroke:var(--terra);stroke-width:2.4;transform-origin:center;transform-box:fill-box}
+  @media (prefers-reduced-motion:no-preference){
+    .np.a{animation:emerge 2.8s var(--ease) infinite}.np.b{animation:emerge 2.8s var(--ease) infinite .9s}.np.c{animation:emerge 2.8s var(--ease) infinite 1.8s}
+    .plus{animation:plusbeat 2.8s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+  }
+  @keyframes emerge{0%{transform:scale(.3);opacity:0}25%{opacity:.9}100%{transform:scale(1);opacity:0}}
+  @keyframes plusbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  .plus{stroke:var(--terra);stroke-width:3;stroke-linecap:round}
+  .badge-soon{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);background:rgba(194,65,12,.1);border:1px solid rgba(194,65,12,.25);padding:.2rem .55rem;border-radius:999px;margin-bottom:.7rem}
+
+  /* ===== DARK BAND ===== */
+  .band{background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
+  .band .kicker{color:var(--terra-2)}.band h2.title{color:var(--cream)}
+  .band p{color:#CDC5B7;max-width:60ch;font-size:clamp(1rem,1.3vw,1.12rem);margin-top:1.5rem}
+  .band p b{color:#fff;font-weight:600}
+  .band-logo{position:absolute;right:-90px;top:50%;transform:translateY(-50%);width:420px;height:420px;opacity:.12;pointer-events:none}
+  .band-logo .rim{fill:none;stroke:var(--terra-2);stroke-width:2.4}
+  .band-logo .smile{fill:none;stroke:var(--terra-2);stroke-width:2.4;stroke-linecap:round}
+  .band-logo .spoon{fill:var(--terra-2)}
+
+  /* ===== CONTACT ===== */
+  .contact-box{margin-top:1.8rem;border:1px solid var(--line);background:var(--surface);border-radius:18px;padding:1.4rem 1.6rem;display:flex;flex-wrap:wrap;gap:1.4rem 2.4rem}
+  .contact-box a{display:flex;align-items:center;gap:.6rem;font-weight:600;font-size:1.02rem;transition:color .2s ease}
+  .contact-box a:hover{color:var(--terra)}
+  .contact-box svg{width:20px;height:20px;color:var(--terra)}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);padding:2rem 0}
+  .foot-in{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;color:var(--ink-soft);font-size:.9rem}
+  .foot-in .logo{font-size:1.05rem}
+
+  /* ===== reveal ===== */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .cards.in .card{opacity:0;transform:translateY(24px);animation:cardin .7s var(--ease) forwards}
+  .cards.in .card:nth-child(1){animation-delay:.05s}.cards.in .card:nth-child(2){animation-delay:.16s}.cards.in .card:nth-child(3){animation-delay:.27s}
+  @keyframes cardin{to{opacity:1;transform:none}}
+
+  /* hero load sequence */
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .cta-row,.hero .hero-caption,.hero .signature{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  body.loaded .hero .eyebrow{opacity:1;transform:none;transition-delay:.05s}
+  body.loaded .hero h1{opacity:1;transform:none;transition-delay:.18s}
+  body.loaded .hero .lead{opacity:1;transform:none;transition-delay:.34s}
+  body.loaded .hero .cta-row{opacity:1;transform:none;transition-delay:.48s}
+  body.loaded .hero .hero-caption{opacity:1;transform:none;transition-delay:.6s}
+  body.loaded .hero .signature{opacity:1;transform:none;transition-delay:.25s}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important}
+    .reveal,.hero .eyebrow,.hero h1,.hero .lead,.hero .cta-row,.hero .hero-caption,.hero .signature,.cards.in .card{opacity:1!important;transform:none!important}
+    .underline-word::after{transform:scaleX(1)!important}
+    .plate .smile,.big-smile{stroke-dashoffset:0!important}
+    .plate .spoon,.big-spoon{transform:none!important;opacity:1!important}
+  }
+  @media (max-width:980px){.cards{grid-template-columns:1fr}}
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:2.5rem}
+    .signature{max-width:260px;order:-1}.lead{max-width:none}
+    h1.hero-title{font-size:clamp(2.3rem,9vw,3.2rem)}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#">
+      <svg class="plate" viewBox="0 0 64 64" fill="none">
+        <circle class="rim" cx="32" cy="32" r="27"/>
+        <path class="smile" pathLength="1" d="M20 35 Q32 47 44 35"/>
+        <circle class="spoon" cx="20" cy="35" r="4.4"/>
+      </svg>
+      platofy
+    </a>
+    <a href="#contact" class="btn btn-primary">Talk to us</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>An AI &amp; tech enablement company for the food business</span>
+      <h1 class="hero-title display">We bring AI and modern tech to the <span class="underline-word">food business.</span></h1>
+      <p class="lead">We're the AI and tech team that food businesses don't have in-house — but should. Platofy builds simple, practical AI products, and translates the technology so you don't have to.</p>
+      <div class="cta-row">
+        <a href="tel:+919354637615" class="btn btn-call">Call us</a>
+        <a href="https://wa.me/919354637615" class="btn btn-ghost">WhatsApp us</a>
+        <a href="mailto:hi@platofy.ai" class="btn btn-ghost">Email us</a>
+      </div>
+      <p class="hero-caption"><span class="live"></span>Two products in development. More on the way.</p>
+    </div>
+
+    <div class="signature" aria-hidden="true">
+      <svg viewBox="0 0 200 200">
+        <circle class="big-rim" cx="100" cy="100" r="70"/>
+        <path class="big-smile" pathLength="1" d="M66 104 Q100 150 134 104"/>
+        <circle class="big-spoon" cx="66" cy="104" r="12"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap reveal">
+    <span class="kicker">What we do</span>
+    <h2 class="title">The bridge between AI and your business.</h2>
+    <p class="what-body">AI is changing what's possible for businesses everywhere — but almost none of it has reached the food industry that needs it most. <b>We understand AI, technology, and product.</b> We figure out where AI can genuinely help a food business, then build it into a simple product that just works. No jargon, no bloat, no long contracts.</p>
+  </div>
+</section>
+
+<section class="block tint">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">What we're building</span>
+      <h2 class="title">Two products live. More coming.</h2>
+    </div>
+    <div class="cards" id="cards">
+      <article class="card">
+        <div class="card-motif"><div class="qr" id="qr"></div></div>
+        <h3>Smart QR Menu &amp; Ordering</h3>
+        <p>Guests scan a QR code, browse your menu, order, and pay — directly. No app, no aggregator commission. Our AI builds your whole digital menu from a photo of your existing one in minutes, and suggests smart add-ons that lift order value.</p>
+        <div class="for">Cafes, restaurants, food outlets, hotel in-room dining, resort outlets.</div>
+      </article>
+      <article class="card">
+        <div class="card-motif"><div class="eq"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+        <h3>Guest-Controlled Music</h3>
+        <p>Let your guests set the vibe. They queue songs to your speakers from their phone, within rules you control. It turns an ordinary visit into something people remember — and nobody else in India is doing it yet.</p>
+        <div class="for">Cafes, lounges, bars, resorts.</div>
+      </article>
+      <article class="card next">
+        <div class="next-motif">
+          <svg viewBox="0 0 92 92" fill="none">
+            <circle class="np a" cx="46" cy="46" r="42"/><circle class="np b" cx="46" cy="46" r="42"/><circle class="np c" cx="46" cy="46" r="42"/>
+            <line class="plus" x1="46" y1="34" x2="46" y2="58"/><line class="plus" x1="34" y1="46" x2="58" y2="46"/>
+          </svg>
+        </div>
+        <span class="badge-soon">On the roadmap</span>
+        <h3>And more, soon.</h3>
+        <p>We're building the next set of AI tools for food businesses — from kitchen and operations to guest experience, feedback, and analytics. One useful product at a time.</p>
+        <div class="for">Built with our early partners. Want to shape what's next? Talk to us.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block band">
+  <svg class="band-logo" viewBox="0 0 64 64" fill="none"><circle class="rim" cx="32" cy="32" r="27"/><path class="smile" d="M20 35 Q32 47 44 35"/><circle class="spoon" cx="20" cy="35" r="4.4"/></svg>
+  <div class="wrap reveal" style="position:relative">
+    <span class="kicker">Who we are</span>
+    <h2 class="title">The AI team you don't have in-house.</h2>
+    <p>We're a small team that understands three things well: AI, technology, and product. We're not a big software company, and we don't sell bloated systems — we pay close attention to where AI is genuinely useful, and build practical products that fit how food businesses already work.</p>
+    <p><b>We do the hard part of understanding the technology, so you get tools that simply make your business better.</b></p>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="wrap reveal">
+    <span class="kicker">Let's talk</span>
+    <h2 class="title">No forms. Just talk to us.</h2>
+    <p class="what-body">If you run a restaurant, cafe, food business, or resort — or you're just curious about what AI could do for you — reach out directly.</p>
+    <div class="contact-box">
+      <a href="tel:+919354637615"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call or WhatsApp: +91 93546 37615</a>
+      <a href="mailto:hi@platofy.ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>hi@platofy.ai</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <a class="logo" href="#">
+      <svg class="plate static" viewBox="0 0 64 64" fill="none"><circle class="rim" cx="32" cy="32" r="27"/><path class="smile" d="M20 35 Q32 47 44 35"/><circle class="spoon" cx="20" cy="35" r="4.4"/></svg>
+      platofy
+    </a>
+    <span>Building in India 🇮🇳 · © 2026</span>
+    <span>+91 93546 37615 · hi@platofy.ai</span>
+  </div>
+</footer>
+
+<script>
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
+  addEventListener('load',()=>document.body.classList.add('loaded'));
+  setTimeout(()=>document.body.classList.add('loaded'),400);
+  const qr=document.getElementById('qr');
+  const on=new Set([2,5,11,14,17,20,23,26,29,8,12,33]);
+  const anchors=new Set([0,1,6,7,4,5,10,11,24,25,30,31]);
+  for(let i=0;i<36;i++){const b=document.createElement('i');if(anchors.has(i))b.classList.add('anchor');else if(on.has(i))b.classList.add('on');qr.appendChild(b);}
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+  document.querySelectorAll('.reveal,#cards').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
