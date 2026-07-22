@@ -9,7 +9,7 @@ export function Footer() {
           platofy
         </a>
         <span>Building in India 🇮🇳 · © 2026</span>
-        <span>+91 93546 37615 · hi@platofy.ai</span>
+        <span>+91 93546 37615 · +91 87089 82188 · hi@platofy.ai</span>
       </div>
     </footer>
   );
